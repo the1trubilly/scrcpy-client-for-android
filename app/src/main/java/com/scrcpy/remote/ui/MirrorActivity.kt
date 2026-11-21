@@ -671,8 +671,7 @@ class MirrorActivity : ComponentActivity() {
         // A focused local Compose control may consume Space as a click before
         // Activity.onKeyDown() sees it. Route a physical Space key to the
         // connected Android device first, preserving both press and release.
-        if (event.keyCode == KeyEvent.KEYCODE_SPACE &&
-            event.isFromSource(InputDevice.SOURCE_KEYBOARD) &&
+        if (event.isFromSource(InputDevice.SOURCE_KEYBOARD) &&
             (event.action == KeyEvent.ACTION_DOWN || event.action == KeyEvent.ACTION_UP)
         ) {
             val remoteAction = if (event.action == KeyEvent.ACTION_DOWN)
