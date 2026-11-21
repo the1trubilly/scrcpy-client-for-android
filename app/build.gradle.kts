@@ -105,7 +105,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.scrcpy.remote"
+        applicationId = "com.scrcpy.remote.billytest"
         minSdk = 26
         targetSdk = 36
         versionCode = 86

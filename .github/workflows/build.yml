@@ -71,7 +71,7 @@ jobs:
             test "$digest" = "$expected_digest"
           done
           for apk in "$debug" "$local_release"; do
-            "$tools/aapt2" dump badging "$apk" | grep "^package: name='com.scrcpy.remote' versionCode='$expected_code' versionName='$expected_name'"
+            "$tools/aapt2" dump badging "$apk" | grep "^package: name='com.scrcpy.remote.billytest' versionCode='$expected_code' versionName='$expected_name'"
           done
 
       - name: Upload test and lint reports
