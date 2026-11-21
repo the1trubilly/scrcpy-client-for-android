@@ -665,6 +665,21 @@ class MirrorActivity : ComponentActivity() {
      * that requests focus asynchronously. Anything the policy does not claim falls through to the
      * default handling, which keeps local Back, volume and shortcuts behaving exactly as before.
      */
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        // A focused local Compose control may consume Space as a click before
+        // Activity.onKeyDown() sees it. Route a physical Space key to the
+        // connected Android device first, preserving both press and release.
+        if (event.keyCode == KeyEvent.KEYCODE_SPACE &&
+            event.isFromSource(InputDevice.SOURCE_KEYBOARD) &&
+            (event.action == KeyEvent.ACTION_DOWN || event.action == KeyEvent.ACTION_UP)
+        ) {
+            val remoteAction = if (event.action == KeyEvent.ACTION_DOWN)
+                MirrorViewModel.ACTION_DOWN else MirrorViewModel.ACTION_UP
+            if (forwardKey(remoteAction, event.keyCode, event)) return true
+        }
+        return super.dispatchKeyEvent(event)
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean =
         consumedAsMouseButton(keyCode, event) ||
             forwardKey(MirrorViewModel.ACTION_DOWN, keyCode, event) ||
