@@ -3,6 +3,7 @@ package com.scrcpy.remote.ui
 import com.scrcpy.remote.R
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.app.PictureInPictureParams
 import android.content.Context
@@ -665,6 +666,7 @@ class MirrorActivity : ComponentActivity() {
      * that requests focus asynchronously. Anything the policy does not claim falls through to the
      * default handling, which keeps local Back, volume and shortcuts behaving exactly as before.
      */
+    @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         // A focused local Compose control may consume Space as a click before
         // Activity.onKeyDown() sees it. Route a physical Space key to the
